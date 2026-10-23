@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design system – Marjorie Ngoupende | Couleurs, typographie et accessibilité</title>
+  <meta name="description" content="Le design system du site de Marjorie Ngoupende, web designer à Toulon : couleurs, trois thèmes dont un thème à contraste élevé, typographie, composants et règles d’accessibilité.">
+  <link rel="canonical" href="https://marjorie-n.github.io/mon-design-systeme/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Marjorie Ngoupende">
+  <meta property="og:title" content="Design system – Marjorie Ngoupende">
+  <meta property="og:description" content="Couleurs, typographie, composants et règles d’accessibilité du site de Marjorie Ngoupende.">
+  <meta property="og:url" content="https://marjorie-n.github.io/mon-design-systeme/">
+  <meta property="og:image" content="https://marjorie-ngoupende.netlify.app/og-image.jpg">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <script>
+    /* Applique le thème choisi avant l’affichage pour éviter un clignotement */
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark' || t === 'contraste') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <style>
+    /* ===== Palette basée sur la couleur du logo #004952 (contrastes ≥ 4.5:1 vérifiés) ===== */
+    :root {
+      --fond: #ffffff;
+      --fond-alt: #f5f7f7;
+      --fond-accent: #e6f0f1;
+      --texte: #1b1f22;
+      --texte-doux: #4b5357;
+      --accent: #004952;
+      --accent-fonce: #004952;
+      --accent-texte: #ffffff;
+      --bordure: #cdd5d6;
+      --focus: #b3261e;
+      --pied: #004952;
+      --pied-texte: #ffffff;
+      --pied-lien: #a8e0e6;
+      --pied-filet: #2f6f77;
+      color-scheme: light;
+    }
+    /* Thème sombre : selon le système, sauf si la personne a choisi « clair » */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --fond: #121516;
+        --fond-alt: #1a1e20;
+        --fond-accent: #0f2e32;
+        --texte: #e9eeef;
+        --texte-doux: #b9c3c5;
+        --accent: #7fc8d0;
+        --accent-fonce: #7fc8d0;
+        --accent-texte: #0e1a19;
+        --bordure: #364042;
+        --focus: #ffb4ab;
+        --pied: #00343b;
+        --pied-texte: #e9eeef;
+        --pied-lien: #a8e0e6;
+        --pied-filet: #1f5960;
+        color-scheme: dark;
+      }
+    }
+    /* Thème sombre choisi manuellement */
+    :root[data-theme="dark"] {
+      --fond: #121516;
+      --fond-alt: #1a1e20;
+      --fond-accent: #0f2e32;
+      --texte: #e9eeef;
+      --texte-doux: #b9c3c5;
+      --accent: #7fc8d0;
+      --accent-fonce: #7fc8d0;
+      --accent-texte: #0e1a19;
+      --bordure: #364042;
+      --focus: #ffb4ab;
+      --pied: #00343b;
+      --pied-texte: #e9eeef;
+      --pied-lien: #a8e0e6;
+      --pied-filet: #1f5960;
+      color-scheme: dark;
+    }
+    /* Thème « Contraste élevé » choisi manuellement : textes ≥ 7:1 (WCAG AAA), bordures ≥ 3:1 */
+    :root[data-theme="contraste"] {
+      --fond: #ffffff;
+      --fond-alt: #f2f4f4;
+      --fond-accent: #e6f0f1;
+      --texte: #000000;
+      --texte-doux: #1b1f22;
+      --accent: #003a42;
+      --accent-fonce: #003a42;
+      --accent-texte: #ffffff;
+      --bordure: #4b5357;
+      --focus: #8c1d18;
+      --pied: #00262b;
+      --pied-texte: #ffffff;
+      --pied-lien: #bfeaef;
+      --pied-filet: #a8e0e6;
+      color-scheme: light;
+    }
+    /* En contraste élevé, les blocs se distinguent par une bordure et les liens du menu restent soulignés */
+    [data-theme="contraste"] .accroche { border-bottom: 2px solid var(--bordure); }
+    [data-theme="contraste"] .bloc-contact { border: 2px solid var(--bordure); }
+    [data-theme="contraste"] .carte { border-width: 2px; border-bottom-width: 4px; }
+    [data-theme="contraste"] nav a { text-decoration: underline; }
+    [data-theme="contraste"] .bouton-secondaire { border-width: 3px; }
+
+    /* ===== Base ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body {
+      margin: 0;
+      background: var(--fond);
+      color: var(--texte);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
+    .conteneur { max-width: 70rem; margin: 0 auto; padding: 0 1rem; }
+    h1, h2, h3 { line-height: 1.25; margin-top: 0; }
+    h2 { font-size: 1.75rem; margin-bottom: 1rem; }
+    h3 { font-size: 1.25rem; margin-bottom: .5rem; }
+    p { margin-top: 0; }
+    a { color: var(--accent); text-underline-offset: .2em; }
+    a:hover { text-decoration-thickness: 2px; }
+    img { max-width: 100%; height: auto; display: block; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+    /* ===== Liens d'évitement ===== */
+    .evitement { position: absolute; left: 0; top: 0; margin: 0; padding: 0; list-style: none; }
+    .evitement a {
+      position: absolute; left: 1rem; top: -5rem; white-space: nowrap;
+      background: var(--accent); color: var(--accent-texte);
+      padding: .6rem 1rem; border-radius: .3rem; z-index: 10;
+    }
+    .evitement a:focus { top: 1rem; }
+
+    /* ===== En-tête ===== */
+    header { border-bottom: 1px solid var(--bordure); }
+    .entete { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 2rem; padding: 1.25rem 1rem; }
+    .marque { display: flex; align-items: center; gap: .85rem; text-decoration: none; color: var(--texte); }
+    .logo { width: 3.5rem; height: 3.5rem; border-radius: .4rem; flex-shrink: 0; }
+    .marque strong { display: block; font-size: 1.3rem; }
+    .marque-texte span { display: block; font-size: 1rem; color: var(--texte-doux); }
+    nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
+    nav a { display: inline-block; padding: .5rem 0; font-weight: 600; text-decoration: none; }
+    nav a:hover { text-decoration: underline; }
+
+    /* ===== Bandeau d'accroche ===== */
+    .accroche { background: var(--fond-accent); padding: 4rem 0; }
+    .accroche h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); max-width: 48rem; margin-bottom: 1.25rem; }
+    .accroche h1 strong { color: var(--accent-fonce); }
+    .accroche p { font-size: 1.25rem; max-width: 44rem; color: var(--texte-doux); }
+    .accroche-grille { display: grid; gap: 2.5rem; align-items: center; grid-template-columns: 1fr; }
+    @media (min-width: 52rem) { .accroche-grille { grid-template-columns: minmax(0, 1fr) 18rem; } }
+    .portrait { margin: 0; max-width: 9rem; order: -1; }
+    @media (min-width: 52rem) { .portrait { max-width: 18rem; order: 0; } }
+    .portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 20%; border-radius: .5rem; border-bottom: 6px solid var(--accent); }
+    .bouton {
+      display: inline-block; margin-top: .5rem;
+      background: var(--accent); color: var(--accent-texte);
+      padding: .85rem 1.5rem; border-radius: .3rem;
+      font-weight: 700; text-decoration: none;
+    }
+    .bouton:hover { text-decoration: underline; }
+    .bouton-secondaire { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+
+    /* ===== Sections ===== */
+    section { padding: 3.5rem 0; }
+    .fond-alt { background: var(--fond-alt); }
+    .intro-section { color: var(--texte-doux); max-width: 44rem; margin-bottom: 1.75rem; }
+
+    /* Deux grands piliers */
+    .piliers { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); }
+    .pilier { border-left: 6px solid var(--accent); padding: .25rem 0 .25rem 1.25rem; }
+    .pilier h2 { margin-bottom: .5rem; }
+    .pilier p { color: var(--texte-doux); margin: 0; }
+
+    /* Grilles de cartes */
+    .grille { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); }
+    .carte { background: var(--fond); border: 1px solid var(--bordure); border-bottom: 4px solid var(--accent); padding: 1.5rem; display: flex; flex-direction: column; }
+    .carte p { color: var(--texte-doux); margin-bottom: 0; }
+    .carte img { margin: -1.5rem -1.5rem 1.25rem; max-width: calc(100% + 3rem); }
+    .carte .meta { font-size: .95rem; margin-top: auto; padding-top: 1rem; color: var(--texte-doux); }
+
+    /* En-tête de section avec lien « voir tout » */
+    .tete-section { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem; margin-bottom: 1.5rem; }
+    .tete-section h2 { margin: 0; }
+
+    /* Bloc contact */
+    .bloc-contact { background: var(--fond-accent); padding: 2rem; border-radius: .3rem; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); align-items: center; }
+    .bloc-contact h2 { margin-bottom: .5rem; }
+    .bloc-contact p { margin: 0; color: var(--texte-doux); }
+    .reseaux { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+
+    /* ===== Pied de page ===== */
+    footer { background: var(--pied); color: var(--pied-texte); padding: 3rem 0 2rem; font-size: 1rem; }
+    footer a { color: var(--pied-lien); }
+    footer :focus-visible { outline-color: #ffb4ab; }
+    .pied-haut { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); margin-bottom: 2rem; }
+    footer h2 { font-size: 1.15rem; margin-bottom: .75rem; }
+    footer dl { margin: 0; }
+    footer dt { font-weight: 700; margin-top: .5rem; }
+    footer dd { margin: 0; }
+    footer { color-scheme: dark; }
+    footer h3 { font-size: 1.05rem; margin: 1.25rem 0 .5rem; }
+    footer ul.consignes { margin: 0; padding-left: 1.2rem; }
+    footer ul.consignes li { margin-bottom: .5rem; }
+    footer kbd { font-family: inherit; font-weight: 700; }
+    footer details { margin-top: 1rem; }
+    footer summary { cursor: pointer; font-weight: 700; color: var(--pied-lien); text-decoration: underline; text-underline-offset: .2em; }
+    footer summary:hover { text-decoration-thickness: 2px; }
+    footer details[open] summary { margin-bottom: .5rem; }
+    footer fieldset { border: 0; margin: 0; padding: 0; }
+    footer legend { padding: 0; margin-bottom: .5rem; }
+    .choix-theme { display: flex; align-items: center; gap: .6rem; padding: .3rem 0; cursor: pointer; }
+    .parametres { margin-top: 2rem; }
+    .choix-theme input {
+      appearance: none; -webkit-appearance: none; margin: 0; flex-shrink: 0;
+      width: 1.25rem; height: 1.25rem; border-radius: 50%;
+      border: 2px solid var(--pied-texte); background: transparent; cursor: pointer;
+      display: grid; place-content: center;
+    }
+    .choix-theme input::before { content: ""; width: .6rem; height: .6rem; border-radius: 50%; transform: scale(0); background: var(--pied-lien); }
+    .choix-theme input:checked { border-color: var(--pied-lien); }
+    .choix-theme input:checked::before { transform: scale(1); }
+    @media (forced-colors: active) { .choix-theme input:checked::before { background: CanvasText; } }
+    main:focus, footer:focus { outline: none; }
+
+    /* Mode contraste élevé de Windows : on garde le contour des boutons */
+    @media (forced-colors: active) {
+      .bouton { border: 2px solid ButtonText; }
+      .carte { border-bottom-width: 1px; }
+    }
+
+    .pied-liens { list-style: none; margin: 0; padding: 1.5rem 0 0; border-top: 1px solid var(--pied-filet); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+  
+    /* ===== Page design system ===== */
+    .tableau { overflow-x: auto; margin-bottom: 2rem; }
+    table { border-collapse: collapse; width: 100%; font-size: 1rem; }
+    caption { text-align: left; font-weight: 700; font-size: 1.15rem; margin-bottom: .75rem; }
+    th, td { text-align: left; vertical-align: middle; padding: .6rem .75rem; border-bottom: 1px solid var(--bordure); }
+    thead th { border-bottom-width: 2px; }
+    tbody th { font-weight: 400; }
+    td { white-space: nowrap; }
+    td:last-child { white-space: normal; }
+    .meta-cellule { font-size: .95rem; color: var(--texte-doux); }
+    code, pre { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .9em; }
+    pre { background: var(--fond-alt); border: 1px solid var(--bordure); border-radius: .3rem; padding: 1rem; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; }
+    .pastille { display: inline-block; width: 1.5rem; height: 1.5rem; border-radius: .3rem; border: 1px solid var(--texte-doux); vertical-align: middle; margin-right: .5rem; }
+    .specimen { display: block; white-space: normal; }
+    .barre { display: block; height: .75rem; background: var(--accent); }
+    .coin { display: block; width: 3rem; height: 2rem; border: 2px solid var(--accent); border-right: 0; border-bottom: 0; }
+    .trait { display: block; width: 6rem; background: var(--accent); }
+    .composant { margin-bottom: 3rem; }
+    .composant > h3 { font-size: 1.5rem; }
+    .exemple { border: 2px dashed var(--bordure); border-radius: .3rem; padding: 1.5rem; margin: 1rem 0; background: var(--fond); }
+    .exemple h4 { font-size: 1.25rem; line-height: 1.25; margin: 0 0 .5rem; }
+    .exemple .pilier h4, .exemple .bloc-contact h4 { font-size: 1.75rem; }
+    .exemple .evitement-demo { display: inline-block; background: var(--accent); color: var(--accent-texte); padding: .6rem 1rem; border-radius: .3rem; text-decoration: underline; }
+    .liste-regles li { margin-bottom: .5rem; }
+    @media (forced-colors: active) { .pastille, .barre, .trait { forced-color-adjust: none; } }
+  </style>
+</head>
+<body>
+
+  <ul class="evitement">
+    <li><a href="#contenu">Aller au contenu</a></li>
+    <li><a href="#pied-de-page">Aller au pied de page</a></li>
+  </ul>
+
+  <header>
+    <div class="conteneur entete">
+      <a class="marque" href="https://marjorie-ngoupende.netlify.app/">
+        <img class="logo" src="assets/logo.png" alt="" width="56" height="56">
+        <span class="marque-texte">
+          <strong>Marjorie Ngoupende</strong>
+          <span>Web design et accessibilité numérique</span>
+        </span>
+      </a>
+      <nav aria-label="Menu du design system">
+        <ul>
+          <li><a href="https://marjorie-ngoupende.netlify.app/">Mon site</a></li>
+          <li><a href="#couleurs">Couleurs</a></li>
+          <li><a href="#typographie">Typographie</a></li>
+          <li><a href="#composants">Composants</a></li>
+          <li><a href="#regles-accessibilite">Règles d’accessibilité</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu" tabindex="-1">
+
+    <div class="accroche">
+      <div class="conteneur">
+        <h1>Mon <strong>design system</strong></h1>
+        <p>Un design system, c’est la boîte à outils d’un site : ses couleurs, ses polices, ses composants et les règles pour bien les utiliser. Celui-ci garantit que chaque page reste claire, cohérente et accessible à tous.</p>
+        <a class="bouton" href="https://github.com/marjorie-n/mon-design-systeme">Voir le code sur GitHub</a>
+      </div>
+    </div>
+
+    <section aria-labelledby="titre-principes">
+      <div class="conteneur">
+        <h2 id="titre-principes">Trois principes</h2>
+        <ul class="piliers">
+          <li class="pilier">
+            <h3>La clarté d’abord</h3>
+            <p>Une idée par bloc, des titres qui disent ce que la section contient, des phrases courtes.</p>
+          </li>
+          <li class="pilier">
+            <h3>Accessible par défaut</h3>
+            <p>Chaque choix respecte le <abbr title="Référentiel général d’amélioration de l’accessibilité">RGAA</abbr> : contrastes vérifiés, focus visible, navigation au clavier, trois thèmes.</p>
+          </li>
+          <li class="pilier">
+            <h3>Une couleur, des filets</h3>
+            <p>La marque se reconnaît à son bleu-vert et à ses traits épais, pas à des ombres ni à des dégradés.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="couleurs" class="fond-alt" aria-labelledby="titre-couleurs">
+      <div class="conteneur">
+        <h2 id="titre-couleurs">Couleurs</h2>
+        <p class="intro-section">Toute la palette part de la couleur du logo, <code>#004952</code>. Chaque couleur a un nom selon son rôle, et une valeur pour chacun des trois thèmes : clair, sombre et contraste élevé. Vous pouvez changer de thème dans les <a href="#parametres-affichage">paramètres d’affichage</a>, en bas de page.</p>
+        <div class="tableau" role="region" aria-labelledby="legende-couleurs" tabindex="0">
+          <table>
+            <caption id="legende-couleurs">Les 15 couleurs et leur valeur dans chaque thème</caption>
+            <thead><tr><th scope="col">Nom</th><th scope="col">Clair</th><th scope="col">Sombre</th><th scope="col">Contraste élevé</th><th scope="col">Rôle</th></tr></thead>
+            <tbody>
+<tr><th scope="row"><code>fond</code></th><td><span class="pastille" style="background:#ffffff" aria-hidden="true"></span><code>#ffffff</code></td><td><span class="pastille" style="background:#121516" aria-hidden="true"></span><code>#121516</code></td><td><span class="pastille" style="background:#ffffff" aria-hidden="true"></span><code>#ffffff</code></td><td>Fond de page et des cartes.</td></tr>
+<tr><th scope="row"><code>fond-alt</code></th><td><span class="pastille" style="background:#f5f7f7" aria-hidden="true"></span><code>#f5f7f7</code></td><td><span class="pastille" style="background:#1a1e20" aria-hidden="true"></span><code>#1a1e20</code></td><td><span class="pastille" style="background:#f2f4f4" aria-hidden="true"></span><code>#f2f4f4</code></td><td>Fond d’une section sur deux, pour rythmer la page.</td></tr>
+<tr><th scope="row"><code>fond-accent</code></th><td><span class="pastille" style="background:#e6f0f1" aria-hidden="true"></span><code>#e6f0f1</code></td><td><span class="pastille" style="background:#0f2e32" aria-hidden="true"></span><code>#0f2e32</code></td><td><span class="pastille" style="background:#e6f0f1" aria-hidden="true"></span><code>#e6f0f1</code></td><td>Bandeau d’accroche et bloc contact.</td></tr>
+<tr><th scope="row"><code>texte</code></th><td><span class="pastille" style="background:#1b1f22" aria-hidden="true"></span><code>#1b1f22</code></td><td><span class="pastille" style="background:#e9eeef" aria-hidden="true"></span><code>#e9eeef</code></td><td><span class="pastille" style="background:#000000" aria-hidden="true"></span><code>#000000</code></td><td>Texte courant et titres.</td></tr>
+<tr><th scope="row"><code>texte-doux</code></th><td><span class="pastille" style="background:#4b5357" aria-hidden="true"></span><code>#4b5357</code></td><td><span class="pastille" style="background:#b9c3c5" aria-hidden="true"></span><code>#b9c3c5</code></td><td><span class="pastille" style="background:#1b1f22" aria-hidden="true"></span><code>#1b1f22</code></td><td>Texte secondaire : chapô, descriptions, dates.</td></tr>
+<tr><th scope="row"><code>accent</code></th><td><span class="pastille" style="background:#004952" aria-hidden="true"></span><code>#004952</code></td><td><span class="pastille" style="background:#7fc8d0" aria-hidden="true"></span><code>#7fc8d0</code></td><td><span class="pastille" style="background:#003a42" aria-hidden="true"></span><code>#003a42</code></td><td>Couleur du logo : liens, boutons, filets.</td></tr>
+<tr><th scope="row"><code>accent-fonce</code></th><td><span class="pastille" style="background:#004952" aria-hidden="true"></span><code>#004952</code></td><td><span class="pastille" style="background:#7fc8d0" aria-hidden="true"></span><code>#7fc8d0</code></td><td><span class="pastille" style="background:#003a42" aria-hidden="true"></span><code>#003a42</code></td><td>Mots mis en valeur dans le grand titre.</td></tr>
+<tr><th scope="row"><code>accent-texte</code></th><td><span class="pastille" style="background:#ffffff" aria-hidden="true"></span><code>#ffffff</code></td><td><span class="pastille" style="background:#0e1a19" aria-hidden="true"></span><code>#0e1a19</code></td><td><span class="pastille" style="background:#ffffff" aria-hidden="true"></span><code>#ffffff</code></td><td>Texte posé sur un fond accent (boutons).</td></tr>
+<tr><th scope="row"><code>bordure</code></th><td><span class="pastille" style="background:#cdd5d6" aria-hidden="true"></span><code>#cdd5d6</code></td><td><span class="pastille" style="background:#364042" aria-hidden="true"></span><code>#364042</code></td><td><span class="pastille" style="background:#4b5357" aria-hidden="true"></span><code>#4b5357</code></td><td>Contours des cartes et de l’en-tête.</td></tr>
+<tr><th scope="row"><code>focus</code></th><td><span class="pastille" style="background:#b3261e" aria-hidden="true"></span><code>#b3261e</code></td><td><span class="pastille" style="background:#ffb4ab" aria-hidden="true"></span><code>#ffb4ab</code></td><td><span class="pastille" style="background:#8c1d18" aria-hidden="true"></span><code>#8c1d18</code></td><td>Contour qui montre l’élément atteint au clavier.</td></tr>
+<tr><th scope="row"><code>focus-pied</code></th><td><span class="pastille" style="background:#ffb4ab" aria-hidden="true"></span><code>#ffb4ab</code></td><td><span class="pastille" style="background:#ffb4ab" aria-hidden="true"></span><code>#ffb4ab</code></td><td><span class="pastille" style="background:#ffb4ab" aria-hidden="true"></span><code>#ffb4ab</code></td><td>Contour de focus dans le pied de page.</td></tr>
+<tr><th scope="row"><code>pied</code></th><td><span class="pastille" style="background:#004952" aria-hidden="true"></span><code>#004952</code></td><td><span class="pastille" style="background:#00343b" aria-hidden="true"></span><code>#00343b</code></td><td><span class="pastille" style="background:#00262b" aria-hidden="true"></span><code>#00262b</code></td><td>Fond du pied de page.</td></tr>
+<tr><th scope="row"><code>pied-texte</code></th><td><span class="pastille" style="background:#ffffff" aria-hidden="true"></span><code>#ffffff</code></td><td><span class="pastille" style="background:#e9eeef" aria-hidden="true"></span><code>#e9eeef</code></td><td><span class="pastille" style="background:#ffffff" aria-hidden="true"></span><code>#ffffff</code></td><td>Texte du pied de page.</td></tr>
+<tr><th scope="row"><code>pied-lien</code></th><td><span class="pastille" style="background:#a8e0e6" aria-hidden="true"></span><code>#a8e0e6</code></td><td><span class="pastille" style="background:#a8e0e6" aria-hidden="true"></span><code>#a8e0e6</code></td><td><span class="pastille" style="background:#bfeaef" aria-hidden="true"></span><code>#bfeaef</code></td><td>Liens du pied de page.</td></tr>
+<tr><th scope="row"><code>pied-filet</code></th><td><span class="pastille" style="background:#2f6f77" aria-hidden="true"></span><code>#2f6f77</code></td><td><span class="pastille" style="background:#1f5960" aria-hidden="true"></span><code>#1f5960</code></td><td><span class="pastille" style="background:#a8e0e6" aria-hidden="true"></span><code>#a8e0e6</code></td><td>Trait de séparation en bas de page.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Contrastes vérifiés</h3>
+        <p class="intro-section">Le contraste mesure l’écart de luminosité entre un texte et son fond. Les règles WCAG demandent au moins 4,5:1 pour le texte (niveau AA), 7:1 pour le niveau renforcé (AAA), et 3:1 pour un contour de focus.</p>
+        <div class="tableau" role="region" aria-labelledby="legende-contrastes" tabindex="0">
+          <table>
+            <caption id="legende-contrastes">Rapports de contraste des principales associations, par thème</caption>
+            <thead><tr><th scope="col">Association</th><th scope="col">Clair</th><th scope="col">Sombre</th><th scope="col">Contraste élevé</th></tr></thead>
+            <tbody>
+<tr><th scope="row">Texte courant sur le fond<br><span class="meta-cellule"><code>texte</code> sur <code>fond</code></span></th><td>16,5:1 (AAA)</td><td>15,6:1 (AAA)</td><td>21,0:1 (AAA)</td></tr>
+<tr><th scope="row">Texte courant sur le fond accent<br><span class="meta-cellule"><code>texte</code> sur <code>fond-accent</code></span></th><td>14,2:1 (AAA)</td><td>12,3:1 (AAA)</td><td>18,0:1 (AAA)</td></tr>
+<tr><th scope="row">Texte secondaire sur le fond<br><span class="meta-cellule"><code>texte-doux</code> sur <code>fond</code></span></th><td>7,8:1 (AAA)</td><td>10,2:1 (AAA)</td><td>16,5:1 (AAA)</td></tr>
+<tr><th scope="row">Texte secondaire sur le fond accent<br><span class="meta-cellule"><code>texte-doux</code> sur <code>fond-accent</code></span></th><td>6,7:1 (AA)</td><td>8,0:1 (AAA)</td><td>14,2:1 (AAA)</td></tr>
+<tr><th scope="row">Lien sur le fond<br><span class="meta-cellule"><code>accent</code> sur <code>fond</code></span></th><td>10,1:1 (AAA)</td><td>9,6:1 (AAA)</td><td>12,4:1 (AAA)</td></tr>
+<tr><th scope="row">Lien sur le fond accent<br><span class="meta-cellule"><code>accent</code> sur <code>fond-accent</code></span></th><td>8,7:1 (AAA)</td><td>7,6:1 (AAA)</td><td>10,7:1 (AAA)</td></tr>
+<tr><th scope="row">Texte d’un bouton<br><span class="meta-cellule"><code>accent-texte</code> sur <code>accent</code></span></th><td>10,1:1 (AAA)</td><td>9,3:1 (AAA)</td><td>12,4:1 (AAA)</td></tr>
+<tr><th scope="row">Texte du pied de page<br><span class="meta-cellule"><code>pied-texte</code> sur <code>pied</code></span></th><td>10,1:1 (AAA)</td><td>11,5:1 (AAA)</td><td>16,0:1 (AAA)</td></tr>
+<tr><th scope="row">Lien du pied de page<br><span class="meta-cellule"><code>pied-lien</code> sur <code>pied</code></span></th><td>6,9:1 (AA)</td><td>9,3:1 (AAA)</td><td>12,3:1 (AAA)</td></tr>
+<tr><th scope="row">Contour de focus sur le fond<br><span class="meta-cellule"><code>focus</code> sur <code>fond</code></span></th><td>6,5:1 (conforme)</td><td>10,8:1 (conforme)</td><td>9,1:1 (conforme)</td></tr>
+<tr><th scope="row">Contour de focus dans le pied<br><span class="meta-cellule"><code>focus-pied</code> sur <code>pied</code></span></th><td>5,9:1 (conforme)</td><td>7,9:1 (conforme)</td><td>9,4:1 (conforme)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="typographie" aria-labelledby="titre-typographie">
+      <div class="conteneur">
+        <h2 id="titre-typographie">Typographie</h2>
+        <p class="intro-section">Une seule famille : la police de votre appareil (System UI, Segoe UI, Roboto ou Arial). Rien à télécharger, une lecture rapide et familière. Le texte courant fait 18 pixels, avec un interligne de 1,6.</p>
+        <div class="tableau" role="region" aria-labelledby="legende-typo" tabindex="0">
+          <table>
+            <caption id="legende-typo">Les 12 styles de texte</caption>
+            <thead><tr><th scope="col">Style</th><th scope="col">Exemple</th><th scope="col">Taille</th><th scope="col">Graisse</th><th scope="col">Interligne</th></tr></thead>
+            <tbody>
+<tr><th scope="row"><code>titre-accroche</code></th><td><span class="specimen" style="font-size:3.2rem;line-height:1.25;font-weight:700">Simples et accessibles</span></td><td>3,2rem (51,2 px)</td><td>700</td><td>1,25</td></tr>
+<tr><th scope="row"><code>titre-section</code></th><td><span class="specimen" style="font-size:1.75rem;line-height:1.25;font-weight:700">Mes réalisations</span></td><td>1,75rem (28 px)</td><td>700</td><td>1,25</td></tr>
+<tr><th scope="row"><code>titre-carte</code></th><td><span class="specimen" style="font-size:1.25rem;line-height:1.25;font-weight:700">Diagnostic d’accessibilité</span></td><td>1,25rem (20 px)</td><td>700</td><td>1,25</td></tr>
+<tr><th scope="row"><code>chapo</code></th><td><span class="specimen" style="font-size:1.25rem;line-height:1.6;font-weight:400">Des sites clairs, utiles et inclusifs.</span></td><td>1,25rem (20 px)</td><td>400</td><td>1,6</td></tr>
+<tr><th scope="row"><code>corps</code></th><td><span class="specimen" style="font-size:1.125rem;line-height:1.6;font-weight:400">Un site vitrine accessible, que vous pouvez mettre à jour vous-même.</span></td><td>1,125rem (18 px)</td><td>400</td><td>1,6</td></tr>
+<tr><th scope="row"><code>corps-pied</code></th><td><span class="specimen" style="font-size:1rem;line-height:1.6;font-weight:400">Web designer freelance spécialisée en UX/UI, WordPress et accessibilité numérique, à Toulon.</span></td><td>1rem (16 px)</td><td>400</td><td>1,6</td></tr>
+<tr><th scope="row"><code>meta</code></th><td><span class="specimen" style="font-size:0.95rem;line-height:1.6;font-weight:400">Refonte · WordPress · Accessibilité</span></td><td>0,95rem (15,2 px)</td><td>400</td><td>1,6</td></tr>
+<tr><th scope="row"><code>nom-marque</code></th><td><span class="specimen" style="font-size:1.3rem;line-height:1.6;font-weight:700">Marjorie Ngoupende</span></td><td>1,3rem (20,8 px)</td><td>700</td><td>1,6</td></tr>
+<tr><th scope="row"><code>bouton</code></th><td><span class="specimen" style="font-size:1.125rem;line-height:1.6;font-weight:700">Parlons de votre projet</span></td><td>1,125rem (18 px)</td><td>700</td><td>1,6</td></tr>
+<tr><th scope="row"><code>lien-nav</code></th><td><span class="specimen" style="font-size:1.125rem;line-height:1.6;font-weight:600">Réalisations</span></td><td>1,125rem (18 px)</td><td>600</td><td>1,6</td></tr>
+<tr><th scope="row"><code>titre-pied</code></th><td><span class="specimen" style="font-size:1.15rem;line-height:1.25;font-weight:700">Mentions légales</span></td><td>1,15rem (18,4 px)</td><td>700</td><td>1,25</td></tr>
+<tr><th scope="row"><code>sous-titre-pied</code></th><td><span class="specimen" style="font-size:1.05rem;line-height:1.25;font-weight:700">Agrandir la page</span></td><td>1,05rem (16,8 px)</td><td>700</td><td>1,25</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="mise-en-page" class="fond-alt" aria-labelledby="titre-mise-en-page">
+      <div class="conteneur">
+        <h2 id="titre-mise-en-page">Espacements, arrondis et traits</h2>
+        <p class="intro-section">Des espacements généreux, des angles à peine arrondis et des filets épais en couleur accent, qui sont la signature visuelle du site.</p>
+        <div class="tableau" role="region" aria-labelledby="legende-espacements" tabindex="0">
+          <table>
+            <caption id="legende-espacements">Espacements</caption>
+            <thead><tr><th scope="col">Nom</th><th scope="col">Valeur</th><th scope="col">Aperçu</th><th scope="col">Utilisation</th></tr></thead>
+            <tbody>
+<tr><th scope="row"><code>space-1</code></th><td>0,25rem</td><td><span class="barre" style="width:0.25rem" aria-hidden="true"></span></td><td>Écart vertical entre liens du menu ; padding vertical des piliers.</td></tr>
+<tr><th scope="row"><code>space-2</code></th><td>0,5rem</td><td><span class="barre" style="width:0.5rem" aria-hidden="true"></span></td><td>Marge sous un titre de carte ou de pilier ; padding vertical des liens du menu ; écart vertical entre liens.</td></tr>
+<tr><th scope="row"><code>pad-evitement-y</code></th><td>0,6rem</td><td><span class="barre" style="width:0.6rem" aria-hidden="true"></span></td><td>Padding vertical du lien d’évitement ; écart icône-texte du choix de thème.</td></tr>
+<tr><th scope="row"><code>space-3</code></th><td>0,75rem</td><td><span class="barre" style="width:0.75rem" aria-hidden="true"></span></td><td>Écart vertical dans l’en-tête ; marge sous un titre du pied.</td></tr>
+<tr><th scope="row"><code>pad-bouton-y</code></th><td>0,85rem</td><td><span class="barre" style="width:0.85rem" aria-hidden="true"></span></td><td>Padding vertical des boutons ; écart logo-nom dans l’en-tête.</td></tr>
+<tr><th scope="row"><code>space-4</code></th><td>1rem</td><td><span class="barre" style="width:1rem" aria-hidden="true"></span></td><td>Marge latérale du conteneur (gouttière mobile) ; marge sous un titre de section ; padding horizontal du lien d’évitement.</td></tr>
+<tr><th scope="row"><code>space-5</code></th><td>1,25rem</td><td><span class="barre" style="width:1.25rem" aria-hidden="true"></span></td><td>Écart entre cartes ; padding gauche des piliers ; padding vertical de l’en-tête.</td></tr>
+<tr><th scope="row"><code>space-6</code></th><td>1,5rem</td><td><span class="barre" style="width:1.5rem" aria-hidden="true"></span></td><td>Padding intérieur des cartes ; écart entre piliers ; padding horizontal des boutons ; écart entre liens du menu.</td></tr>
+<tr><th scope="row"><code>space-7</code></th><td>1,75rem</td><td><span class="barre" style="width:1.75rem" aria-hidden="true"></span></td><td>Marge sous l’intro d’une section.</td></tr>
+<tr><th scope="row"><code>space-8</code></th><td>2rem</td><td><span class="barre" style="width:2rem" aria-hidden="true"></span></td><td>Padding du bloc contact ; écart entre colonnes du pied.</td></tr>
+<tr><th scope="row"><code>space-10</code></th><td>2,5rem</td><td><span class="barre" style="width:2.5rem" aria-hidden="true"></span></td><td>Écart entre texte et portrait dans l’accroche.</td></tr>
+<tr><th scope="row"><code>space-12</code></th><td>3rem</td><td><span class="barre" style="width:3rem" aria-hidden="true"></span></td><td>Padding haut du pied de page.</td></tr>
+<tr><th scope="row"><code>space-14</code></th><td>3,5rem</td><td><span class="barre" style="width:3.5rem" aria-hidden="true"></span></td><td>Padding vertical de chaque section.</td></tr>
+<tr><th scope="row"><code>space-16</code></th><td>4rem</td><td><span class="barre" style="width:4rem" aria-hidden="true"></span></td><td>Padding vertical du bandeau d’accroche.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tableau" role="region" aria-labelledby="legende-arrondis" tabindex="0">
+          <table>
+            <caption id="legende-arrondis">Arrondis</caption>
+            <thead><tr><th scope="col">Nom</th><th scope="col">Valeur</th><th scope="col">Aperçu</th><th scope="col">Utilisation</th></tr></thead>
+            <tbody>
+<tr><th scope="row"><code>radius-sm</code></th><td>0,3rem</td><td><span class="coin" style="border-radius:0.3rem" aria-hidden="true"></span></td><td>Boutons, lien d’évitement, bloc contact.</td></tr>
+<tr><th scope="row"><code>radius-logo</code></th><td>0,4rem</td><td><span class="coin" style="border-radius:0.4rem" aria-hidden="true"></span></td><td>Logo dans l’en-tête.</td></tr>
+<tr><th scope="row"><code>radius-md</code></th><td>0,5rem</td><td><span class="coin" style="border-radius:0.5rem" aria-hidden="true"></span></td><td>Photo portrait.</td></tr>
+<tr><th scope="row"><code>radius-rond</code></th><td>50%</td><td><span class="coin" style="border-radius:50%" aria-hidden="true"></span></td><td>Boutons radio du choix de thème.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tableau" role="region" aria-labelledby="legende-traits" tabindex="0">
+          <table>
+            <caption id="legende-traits">Épaisseurs de traits</caption>
+            <thead><tr><th scope="col">Nom</th><th scope="col">Valeur</th><th scope="col">Aperçu</th><th scope="col">Utilisation</th></tr></thead>
+            <tbody>
+<tr><th scope="row"><code>trait-fin</code></th><td>1px</td><td><span class="trait" style="height:1px" aria-hidden="true"></span></td><td>Bordure des cartes et bas de l’en-tête, en couleur bordure ; filet du bas de pied.</td></tr>
+<tr><th scope="row"><code>trait-controle</code></th><td>2px</td><td><span class="trait" style="height:2px" aria-hidden="true"></span></td><td>Contour du bouton secondaire et des boutons radio.</td></tr>
+<tr><th scope="row"><code>trait-focus</code></th><td>3px</td><td><span class="trait" style="height:3px" aria-hidden="true"></span></td><td>Épaisseur et décalage (outline-offset) du contour de focus.</td></tr>
+<tr><th scope="row"><code>trait-carte</code></th><td>4px</td><td><span class="trait" style="height:4px" aria-hidden="true"></span></td><td>Filet accent en bas des cartes.</td></tr>
+<tr><th scope="row"><code>trait-accent</code></th><td>6px</td><td><span class="trait" style="height:6px" aria-hidden="true"></span></td><td>Filet accent à gauche des piliers et sous la photo portrait.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="composants" aria-labelledby="titre-composants">
+      <div class="conteneur">
+        <h2 id="titre-composants">Composants</h2>
+        <p class="intro-section">Les éléments réutilisables du site, avec un exemple et le code HTML à copier. Ils fonctionnent au clavier et avec un lecteur d’écran. Tous les composants sont aussi réunis sur la <a href="exemples/">page d’exemples</a>.</p>
+
+        <div class="composant">
+          <h3>Bouton</h3>
+          <p>Pour l’action principale d’une section. Le libellé dit ce qui va se passer : « Écrire un e-mail », jamais « Cliquez ici ». Un seul bouton principal par bloc.</p>
+          <div class="exemple" role="group" aria-label="Exemple de boutons">
+            <p style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin:0">
+              <a class="bouton" href="https://marjorie-ngoupende.netlify.app/#contact">Parlons de votre projet</a>
+              <a class="bouton bouton-secondaire" href="https://www.youtube.com/@marjorie_ngoupende">Voir mes vidéos</a>
+            </p>
+          </div>
+          <pre><code>&lt;a class=&quot;bouton&quot; href=&quot;#contact&quot;&gt;Parlons de votre projet&lt;/a&gt;
+&lt;a class=&quot;bouton bouton-secondaire&quot; href=&quot;…&quot;&gt;Voir toutes mes vidéos&lt;/a&gt;</code></pre>
+        </div>
+
+        <div class="composant">
+          <h3>Carte</h3>
+          <p>Pour présenter un service, une réalisation ou une ressource. Le lien se place sur le titre, pas sur toute la carte. Le filet en bas permet de repérer la carte sans dépendre du contour.</p>
+          <div class="exemple" role="group" aria-label="Exemple de carte">
+            <ul class="grille">
+              <li class="carte">
+                <h4><a href="https://www.coeurious.org/">Coeurious</a></h4>
+                <p>Association. Refonte de l’expérience utilisateur : trois prototypes cliquables sur Figma, testés à distance par de vrais utilisateurs.</p>
+                <p class="meta">UX/UI · Figma · Tests utilisateurs</p>
+              </li>
+              <li class="carte">
+                <h4>Documents accessibles</h4>
+                <p>Mise en accessibilité de vos fichiers Word, PDF et PowerPoint.</p>
+              </li>
+            </ul>
+          </div>
+          <pre><code>&lt;ul class=&quot;grille&quot;&gt;
+  &lt;li class=&quot;carte&quot;&gt;
+    &lt;h3&gt;&lt;a href=&quot;https://www.coeurious.org/&quot;&gt;Coeurious&lt;/a&gt;&lt;/h3&gt;
+    &lt;p&gt;Association. Refonte de l’expérience utilisateur…&lt;/p&gt;
+    &lt;p class=&quot;meta&quot;&gt;UX/UI · Figma · Tests utilisateurs&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+
+        <div class="composant">
+          <h3>Pilier</h3>
+          <p>Pour résumer un grand domaine en une phrase, avec le filet épais à gauche. Trois piliers au plus.</p>
+          <div class="exemple" role="group" aria-label="Exemple de pilier">
+            <ul class="piliers">
+              <li class="pilier">
+                <h4>L’accessibilité</h4>
+                <p>Rendre votre site utilisable par <strong>tout le monde</strong>, y compris les personnes en situation de handicap, selon le RGAA.</p>
+              </li>
+            </ul>
+          </div>
+          <pre><code>&lt;ul class=&quot;piliers&quot;&gt;
+  &lt;li class=&quot;pilier&quot;&gt;
+    &lt;h2&gt;L’accessibilité&lt;/h2&gt;
+    &lt;p&gt;Rendre votre site utilisable par &lt;strong&gt;tout le monde&lt;/strong&gt;…&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+
+        <div class="composant">
+          <h3>Bloc contact</h3>
+          <p>Pour inviter à prendre contact en fin de page : une phrase rassurante, un bouton, les réseaux en liens texte.</p>
+          <div class="exemple" role="group" aria-label="Exemple de bloc contact">
+            <div class="bloc-contact">
+              <div>
+                <h4>Un projet ? Parlons-en.</h4>
+                <p>Basée à Toulon, je travaille avec des clients partout en France. Je vous réponds sous 48 heures.</p>
+              </div>
+              <div>
+                <a class="bouton" href="mailto:marjorie.ngoupende@gmail.com">Écrire un e-mail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="composant">
+          <h3>Liens d’évitement</h3>
+          <p>Les tout premiers liens de la page. Invisibles à la souris, ils apparaissent quand on navigue au clavier et permettent d’aller directement au contenu. Essayez : rechargez la page et appuyez sur la touche Tab.</p>
+          <div class="exemple" role="group" aria-label="Aperçu d’un lien d’évitement">
+            <span class="evitement-demo">Aller au contenu</span>
+          </div>
+          <pre><code>&lt;ul class=&quot;evitement&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#contenu&quot;&gt;Aller au contenu&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#pied-de-page&quot;&gt;Aller au pied de page&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </div>
+
+        <div class="composant">
+          <h3>Choix du thème</h3>
+          <p>Trois boutons radio et l’option « Thème du système », regroupés sous une légende. Le choix est mémorisé sur l’appareil de la personne. Il est visible dans les <a href="#parametres-affichage">paramètres d’affichage du pied de page</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ton" class="fond-alt" aria-labelledby="titre-ton">
+      <div class="conteneur">
+        <h2 id="titre-ton">Contenu et ton</h2>
+        <ul class="liste-regles">
+          <li>Je parle en « je » et je vouvoie les visiteurs : « Je vous réponds sous 48 heures ».</li>
+          <li>Un ton chaleureux et pédagogique : j’explique sans jargon, et chaque terme technique est accompagné d’une explication simple.</li>
+          <li>Majuscule seulement en début de titre et aux noms propres : « Mes réalisations ».</li>
+          <li>La typographie française : apostrophe ’, guillemets « », point médian « · » entre des étiquettes.</li>
+          <li>Des liens et boutons compréhensibles hors contexte, jamais « Cliquez ici » ni « En savoir plus » seul.</li>
+          <li>Pas d’emoji.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="regles-accessibilite" aria-labelledby="titre-regles">
+      <div class="conteneur">
+        <h2 id="titre-regles">Règles d’accessibilité</h2>
+        <ul class="liste-regles">
+          <li>Le focus clavier est toujours visible : un contour plein de 3 pixels, décalé du bouton.</li>
+          <li>Des liens d’évitement en tout début de page.</li>
+          <li>Une structure claire : en-tête, menu nommé, contenu principal, pied de page ; un seul titre de niveau 1 et aucun niveau sauté.</li>
+          <li>Une image décorative a un texte alternatif vide ; une image informative dit ce qu’elle montre.</li>
+          <li>Les mots en langue étrangère sont signalés, pour une bonne prononciation par les lecteurs d’écran.</li>
+          <li>L’information ne passe jamais par la couleur seule : liens soulignés, cartes repérées par un filet.</li>
+          <li>Les animations sont coupées si la personne a demandé à réduire les mouvements.</li>
+          <li>Le mode contraste élevé de Windows est pris en charge.</li>
+        </ul>
+        <div class="bloc-contact">
+          <div>
+            <h3>Le code est ouvert</h3>
+            <p>Les couleurs, les styles et les composants de ce design system sont publiés sur GitHub.</p>
+          </div>
+          <div>
+            <a class="bouton" href="https://github.com/marjorie-n/mon-design-systeme">Voir le dépôt sur GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="pied-de-page" tabindex="-1">
+    <div class="conteneur">
+      <div class="pied-haut">
+        <div>
+          <h2>Marjorie Ngoupende</h2>
+          <p>Web designer freelance spécialisée en UX/UI, WordPress et accessibilité numérique, à Toulon.</p>
+          <div id="parametres-affichage" class="parametres" hidden>
+            <h2>Paramètres d’affichage</h2>
+            <fieldset>
+              <legend>Choisissez le thème de la page :</legend>
+              <label class="choix-theme"><input type="radio" name="theme" value="light"> Thème clair</label>
+              <label class="choix-theme"><input type="radio" name="theme" value="dark"> Thème sombre</label>
+              <label class="choix-theme"><input type="radio" name="theme" value="contraste"> Contraste élevé</label>
+              <label class="choix-theme"><input type="radio" name="theme" value="system" checked> Thème du système</label>
+            </fieldset>
+          </div>
+        </div>
+        <div>
+          <h2 id="mentions-legales">Mentions légales</h2>
+          <dl>
+            <dt>Éditrice</dt>
+            <dd>Marjorie Ngoupende, entrepreneuse individuelle (micro-entreprise)</dd>
+            <dd>305 boulevard Docteur Cuneo, 83000 Toulon</dd>
+            <dd><a href="tel:+33783272159">07 83 27 21 59</a></dd>
+            <dt>SIRET</dt>
+            <dd>978 489 706 00025</dd>
+            <dt>Hébergeur</dt>
+            <dd lang="en">Netlify, Inc.</dd>
+            <dd>101 2nd Street, San Francisco, CA 94105, États-Unis</dd>
+            <dd><a href="mailto:support@netlify.com">support@netlify.com</a></dd>
+          </dl>
+        </div>
+        <div>
+          <h2 id="accessibilite">Accessibilité</h2>
+          <p>Page conçue et développée dans les normes RGAA</p>
+          <p>Cette page propose un thème à contraste élevé, à choisir dans les paramètres d’affichage.</p>
+          <p>Un problème d’accès ? <a href="mailto:marjorie.ngoupende@gmail.com">Signalez-le-moi</a>.</p>
+          <details id="adapter-affichage">
+            <summary>Adapter l’affichage avec votre navigateur</summary>
+            <h3>Agrandir la page</h3>
+            <ul class="consignes">
+              <li>Sur ordinateur : <kbd>Ctrl</kbd> et <kbd>+</kbd> (<kbd>Cmd</kbd> et <kbd>+</kbd> sur Mac). <kbd>Ctrl</kbd> et <kbd>0</kbd> pour revenir à la taille normale.</li>
+              <li>Sur téléphone : écartez deux doigts sur l’écran.</li>
+            </ul>
+            <h3>Agrandir seulement le texte</h3>
+            <ul class="consignes">
+              <li>Chrome : Paramètres, puis Apparence, puis Taille de la police.</li>
+              <li>Firefox : Paramètres, puis Général, puis Zoom, et cochez « Zoom texte uniquement ».</li>
+              <li>iPhone : Réglages, puis Accessibilité, puis Affichage et taille du texte.</li>
+              <li>Android : Paramètres, puis Accessibilité, puis Taille de la police.</li>
+            </ul>
+            <h3>Renforcer les contrastes</h3>
+            <ul class="consignes">
+              <li>Windows : Paramètres, puis Accessibilité, puis Thèmes de contraste.</li>
+              <li>Mac : Réglages Système, puis Accessibilité, puis Affichage, et activez « Augmenter le contraste ».</li>
+            </ul>
+            <h3>Écouter la page</h3>
+            <ul class="consignes">
+              <li>Windows : le lecteur d’écran gratuit <a href="https://www.nvaccess.org/download/" lang="en">NVDA</a>.</li>
+              <li>Mac, iPhone et iPad : VoiceOver, intégré dans les réglages d’accessibilité.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+      <ul class="pied-liens">
+        <li><a href="https://marjorie-ngoupende.netlify.app/#accessibilite">Accessibilité : premier niveau </a></li>
+        <li><a href="./" aria-current="page">Design system</a></li>
+        <li>Aucun cookie de suivi</li>
+        <li>© 2026 Marjorie Ngoupende</li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    /* Paramètres d’affichage : visibles seulement si JavaScript fonctionne */
+    (function () {
+      var racine = document.documentElement;
+      var bloc = document.getElementById('parametres-affichage');
+      var choix = document.querySelectorAll('input[name="theme"]');
+      var actuel = racine.getAttribute('data-theme') || 'system';
+
+      bloc.hidden = false;
+
+      choix.forEach(function (radio) {
+        radio.checked = (radio.value === actuel);
+        radio.addEventListener('change', function () {
+          if (this.value === 'system') {
+            racine.removeAttribute('data-theme');
+            try { localStorage.removeItem('theme'); } catch (e) {}
+          } else {
+            racine.setAttribute('data-theme', this.value);
+            try { localStorage.setItem('theme', this.value); } catch (e) {}
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

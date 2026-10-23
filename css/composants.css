@@ -1,0 +1,125 @@
+/* Design system de Marjorie Ngoupende — composants.
+   À charger après tokens.css. Repris du site marjorie-ngoupende.netlify.app ; les éléments du site (header, footer, section) sont ici des classes. */
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+h1, h2, h3 { line-height: 1.25; margin-top: 0; }
+h2 { font-size: 1.75rem; margin-bottom: 1rem; }
+h3 { font-size: 1.25rem; margin-bottom: .5rem; }
+p { margin-top: 0; }
+a { color: var(--accent); text-underline-offset: .2em; }
+a:hover { text-decoration-thickness: 2px; }
+img { max-width: 100%; height: auto; display: block; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.conteneur { max-width: 70rem; margin: 0 auto; padding: 0 1rem; }
+
+/* Lien d'évitement */
+.evitement { position: relative; margin: 0; padding: 0; list-style: none; }
+.evitement a {
+  position: absolute; left: 1rem; top: -5rem; white-space: nowrap;
+  background: var(--accent); color: var(--accent-texte);
+  padding: .6rem 1rem; border-radius: .3rem; z-index: 10;
+}
+.evitement a:focus, .evitement a.est-visible { top: 1rem; }
+
+/* En-tête */
+.entete-site { border-bottom: 1px solid var(--bordure); }
+.entete { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 2rem; padding: 1.25rem 1rem; }
+.marque { display: flex; align-items: center; gap: .85rem; text-decoration: none; color: var(--texte); }
+.logo { width: 3.5rem; height: 3.5rem; border-radius: .4rem; flex-shrink: 0; }
+.marque strong { display: block; font-size: 1.3rem; }
+.marque-texte span { display: block; font-size: 1rem; color: var(--texte-doux); }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
+.nav a { display: inline-block; padding: .5rem 0; font-weight: 600; text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+
+/* Bandeau d'accroche */
+.accroche { background: var(--fond-accent); padding: 4rem 0; }
+.accroche h1 { font-size: clamp(2rem, 5.5vw, 3.2rem); max-width: 48rem; margin-bottom: 1.25rem; }
+.accroche h1 strong { color: var(--accent-fonce); }
+.accroche p { font-size: 1.25rem; max-width: 44rem; color: var(--texte-doux); }
+
+/* Boutons */
+.bouton {
+  display: inline-block; margin-top: .5rem;
+  background: var(--accent); color: var(--accent-texte);
+  padding: .85rem 1.5rem; border-radius: .3rem;
+  font-weight: 700; text-decoration: none;
+}
+.bouton:hover { text-decoration: underline; }
+.bouton-secondaire { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+
+/* Sections */
+.section { padding: 3.5rem 0; }
+.fond-alt { background: var(--fond-alt); }
+.intro-section { color: var(--texte-doux); max-width: 44rem; margin-bottom: 1.75rem; }
+
+/* Piliers */
+.piliers { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); }
+.pilier { border-left: 6px solid var(--accent); padding: .25rem 0 .25rem 1.25rem; }
+.pilier h2 { margin-bottom: .5rem; }
+.pilier p { color: var(--texte-doux); margin: 0; }
+
+/* Cartes */
+.grille { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); }
+.carte { background: var(--fond); border: 1px solid var(--bordure); border-bottom: 4px solid var(--accent); padding: 1.5rem; display: flex; flex-direction: column; }
+.carte p { color: var(--texte-doux); margin-bottom: 0; }
+.carte img { margin: -1.5rem -1.5rem 1.25rem; max-width: calc(100% + 3rem); }
+.carte .meta { font-size: .95rem; margin-top: auto; padding-top: 1rem; color: var(--texte-doux); }
+.tete-section { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem; margin-bottom: 1.5rem; }
+.tete-section h2 { margin: 0; }
+
+/* Bloc contact */
+.bloc-contact { background: var(--fond-accent); padding: 2rem; border-radius: .3rem; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); align-items: center; }
+.bloc-contact h2 { margin-bottom: .5rem; }
+.bloc-contact p { margin: 0; color: var(--texte-doux); }
+.reseaux { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+
+/* Pied de page */
+.pied { background: var(--pied); color: var(--pied-texte); padding: 3rem 0 2rem; font-size: 1rem; color-scheme: dark; }
+.pied a { color: var(--pied-lien); }
+.pied :focus-visible { outline-color: var(--focus-pied); }
+.pied-haut { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); margin-bottom: 2rem; }
+.pied h2 { font-size: 1.15rem; margin-bottom: .75rem; }
+.pied h3 { font-size: 1.05rem; margin: 1.25rem 0 .5rem; }
+.pied details { margin-top: 1rem; }
+.pied summary { cursor: pointer; font-weight: 700; color: var(--pied-lien); text-decoration: underline; text-underline-offset: .2em; }
+.pied summary:hover { text-decoration-thickness: 2px; }
+.pied fieldset { border: 0; margin: 0; padding: 0; }
+.pied legend { padding: 0; margin-bottom: .5rem; }
+.pied ul.consignes { margin: 0; padding-left: 1.2rem; }
+.pied ul.consignes li { margin-bottom: .5rem; }
+.pied kbd { font-family: inherit; font-weight: 700; }
+.choix-theme { display: flex; align-items: center; gap: .6rem; padding: .3rem 0; cursor: pointer; }
+.choix-theme input {
+  appearance: none; -webkit-appearance: none; margin: 0; flex-shrink: 0;
+  width: 1.25rem; height: 1.25rem; border-radius: 50%;
+  border: 2px solid var(--pied-texte); background: transparent; cursor: pointer;
+  display: grid; place-content: center;
+}
+.choix-theme input::before { content: ""; width: .6rem; height: .6rem; border-radius: 50%; transform: scale(0); background: var(--pied-lien); }
+.choix-theme input:checked { border-color: var(--pied-lien); }
+.choix-theme input:checked::before { transform: scale(1); }
+.pied-liens { list-style: none; margin: 0; padding: 1.5rem 0 0; border-top: 1px solid var(--pied-filet); display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+
+/* Thème « Contraste élevé » (ajout du design system) : les surfaces se distinguent par des bordures, les liens restent soulignés */
+[data-theme="contraste"] .accroche { border-bottom: 2px solid var(--bordure); }
+[data-theme="contraste"] .bloc-contact { border: 2px solid var(--bordure); }
+[data-theme="contraste"] .carte { border-width: 2px; border-bottom-width: 4px; }
+[data-theme="contraste"] .nav a { text-decoration: underline; }
+[data-theme="contraste"] .bouton-secondaire { border-width: 3px; }
+
+@media (forced-colors: active) {
+  .bouton { border: 2px solid ButtonText; }
+  .carte { border-bottom-width: 1px; }
+  .choix-theme input:checked::before { background: CanvasText; }
+}

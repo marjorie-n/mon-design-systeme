@@ -1,0 +1,127 @@
+/* Design system de Marjorie Ngoupende — variables CSS (générées depuis tokens/tokens.json)
+   Thème clair par défaut ; sombre selon le système ou avec data-theme="dark" ; contraste élevé avec data-theme="contraste". */
+
+:root {
+  --fond: #ffffff;
+  --fond-alt: #f5f7f7;
+  --fond-accent: #e6f0f1;
+  --texte: #1b1f22;
+  --texte-doux: #4b5357;
+  --accent: #004952;
+  --accent-fonce: #004952;
+  --accent-texte: #ffffff;
+  --bordure: #cdd5d6;
+  --focus: #b3261e;
+  --focus-pied: #ffb4ab;
+  --pied: #004952;
+  --pied-texte: #ffffff;
+  --pied-lien: #a8e0e6;
+  --pied-filet: #2f6f77;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond: #121516;
+    --fond-alt: #1a1e20;
+    --fond-accent: #0f2e32;
+    --texte: #e9eeef;
+    --texte-doux: #b9c3c5;
+    --accent: #7fc8d0;
+    --accent-fonce: #7fc8d0;
+    --accent-texte: #0e1a19;
+    --bordure: #364042;
+    --focus: #ffb4ab;
+    --focus-pied: #ffb4ab;
+    --pied: #00343b;
+    --pied-texte: #e9eeef;
+    --pied-lien: #a8e0e6;
+    --pied-filet: #1f5960;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --fond: #121516;
+  --fond-alt: #1a1e20;
+  --fond-accent: #0f2e32;
+  --texte: #e9eeef;
+  --texte-doux: #b9c3c5;
+  --accent: #7fc8d0;
+  --accent-fonce: #7fc8d0;
+  --accent-texte: #0e1a19;
+  --bordure: #364042;
+  --focus: #ffb4ab;
+  --focus-pied: #ffb4ab;
+  --pied: #00343b;
+  --pied-texte: #e9eeef;
+  --pied-lien: #a8e0e6;
+  --pied-filet: #1f5960;
+  color-scheme: dark;
+}
+
+/* Contraste élevé : textes ≥ 7:1 (WCAG AAA), bordures ≥ 3:1. Placé en dernier pour l'emporter sur le thème du système. */
+:root[data-theme="contraste"] {
+  --fond: #ffffff;
+  --fond-alt: #f2f4f4;
+  --fond-accent: #e6f0f1;
+  --texte: #000000;
+  --texte-doux: #1b1f22;
+  --accent: #003a42;
+  --accent-fonce: #003a42;
+  --accent-texte: #ffffff;
+  --bordure: #4b5357;
+  --focus: #8c1d18;
+  --focus-pied: #ffb4ab;
+  --pied: #00262b;
+  --pied-texte: #ffffff;
+  --pied-lien: #bfeaef;
+  --pied-filet: #a8e0e6;
+  color-scheme: light;
+}
+
+:root {
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --pad-evitement-y: 0.6rem;
+  --space-3: 0.75rem;
+  --pad-bouton-y: 0.85rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --radius-sm: 0.3rem;
+  --radius-logo: 0.4rem;
+  --radius-md: 0.5rem;
+  --radius-rond: 50%;
+  --trait-fin: 1px;
+  --trait-controle: 2px;
+  --trait-focus: 3px;
+  --trait-carte: 4px;
+  --trait-accent: 6px;
+  --conteneur-max: 70rem;
+  --mesure-titre: 48rem;
+  --mesure-texte: 44rem;
+  --portrait-max: 18rem;
+  --point-rupture: 52rem;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Styles de texte */
+.titre-accroche { font-family: var(--font-sans); font-size: 3.2rem; line-height: 1.25; font-weight: 700; }
+.titre-section { font-family: var(--font-sans); font-size: 1.75rem; line-height: 1.25; font-weight: 700; }
+.titre-carte { font-family: var(--font-sans); font-size: 1.25rem; line-height: 1.25; font-weight: 700; }
+.chapo { font-family: var(--font-sans); font-size: 1.25rem; line-height: 1.6; font-weight: 400; }
+.corps { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.6; font-weight: 400; }
+.corps-pied { font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; font-weight: 400; }
+.meta { font-family: var(--font-sans); font-size: 0.95rem; line-height: 1.6; font-weight: 400; }
+.nom-marque { font-family: var(--font-sans); font-size: 1.3rem; line-height: 1.6; font-weight: 700; }
+.bouton { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.6; font-weight: 700; }
+.lien-nav { font-family: var(--font-sans); font-size: 1.125rem; line-height: 1.6; font-weight: 600; }
+.titre-pied { font-family: var(--font-sans); font-size: 1.15rem; line-height: 1.25; font-weight: 700; }
+.sous-titre-pied { font-family: var(--font-sans); font-size: 1.05rem; line-height: 1.25; font-weight: 700; }

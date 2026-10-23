@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exemples – Design system de Marjorie Ngoupende</title>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/composants.css">
+  <style>
+    .titre-exemple { font-size: 1rem; text-transform: uppercase; letter-spacing: .05em; color: var(--texte-doux); padding-top: 2rem; }
+    .exemple { border-bottom: 1px solid var(--bordure); padding-bottom: 1rem; }
+    .choix-demo { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+    /* Dans cette page, les titres des exemples descendent d'un niveau : on garde leur apparence */
+    .accroche h3 { font-size: clamp(2rem, 5.5vw, 3.2rem); max-width: 48rem; margin-bottom: 1.25rem; }
+    .accroche h3 strong { color: var(--accent-fonce); }
+    .pilier h3, .bloc-contact h3 { font-size: 1.75rem; margin-bottom: .5rem; }
+    .pied h3 { font-size: 1.15rem; margin-bottom: .75rem; }
+    .pied h4 { font-size: 1.05rem; margin: 1.25rem 0 .5rem; }
+  </style>
+</head>
+<body>
+  <main id="exemples" class="conteneur" style="padding:2rem 1rem">
+    <h1>Exemples de composants</h1>
+    <p>Chaque composant du design system, avec les fichiers <code>css/tokens.css</code> et <code>css/composants.css</code>.</p>
+    <p><a href="../">Retour à la présentation du design system</a></p>
+    <fieldset>
+      <legend>Thème de cette page :</legend>
+      <div class="choix-demo">
+        <label><input type="radio" name="theme-demo" value="" checked> Thème du système</label>
+        <label><input type="radio" name="theme-demo" value="light"> Clair</label>
+        <label><input type="radio" name="theme-demo" value="dark"> Sombre</label>
+        <label><input type="radio" name="theme-demo" value="contraste"> Contraste élevé</label>
+      </div>
+    </fieldset>
+  </main>
+  <section aria-labelledby="ex-bouton" class="exemple">
+    <h2 id="ex-bouton" class="conteneur titre-exemple">Bouton</h2>
+    <div style="padding:1.5rem 1rem">
+<p style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin:0">
+  <a class="bouton" href="#exemples">Parlons de votre projet</a>
+  <a class="bouton bouton-secondaire" href="#exemples">Voir toutes mes vidéos</a>
+</p>
+    </div>
+  </section>
+  <section aria-labelledby="ex-carte" class="exemple">
+    <h2 id="ex-carte" class="conteneur titre-exemple">Carte</h2>
+    <div style="padding:1.5rem 1rem">
+<ul class="grille">
+  <li class="carte">
+    <h3>Diagnostic d’accessibilité</h3>
+    <p>Vérification de premier niveau de votre site : navigation au clavier, lecteur d’écran, contrastes et structure.</p>
+  </li>
+  <li class="carte">
+    <h3><a href="#exemples">Coeurious</a></h3>
+    <p>Association. Refonte de l’expérience utilisateur : trois prototypes cliquables sur Figma, testés par de vrais utilisateurs.</p>
+    <p class="meta">UX/UI · Figma · Tests utilisateurs</p>
+  </li>
+</ul>
+    </div>
+  </section>
+  <section aria-labelledby="ex-pilier" class="exemple">
+    <h2 id="ex-pilier" class="conteneur titre-exemple">Pilier</h2>
+    <div style="padding:1.5rem 1rem">
+<ul class="piliers">
+  <li class="pilier">
+    <h3>Le design UX/UI</h3>
+    <p>Rendre votre site <strong>simple</strong> et <strong>agréable</strong> : vos visiteurs trouvent vite ce qu’ils cherchent.</p>
+  </li>
+  <li class="pilier">
+    <h3>L’accessibilité</h3>
+    <p>Rendre votre site utilisable par <strong>tout le monde</strong>, y compris les personnes en situation de handicap, selon le RGAA.</p>
+  </li>
+</ul>
+    </div>
+  </section>
+  <section aria-labelledby="ex-accroche" class="exemple">
+    <h2 id="ex-accroche" class="conteneur titre-exemple">Accroche</h2>
+    <div>
+<div class="accroche">
+  <div class="conteneur">
+    <h3>Concevons des sites web <strong>simples</strong> et <strong>accessibles à tous</strong>.</h3>
+    <p>Web designer à Toulon, j’accompagne les particuliers, indépendants et associations, dans le Var et partout en France, pour créer des sites clairs, utiles et inclusifs.</p>
+    <a class="bouton" href="#exemples">Parlons de votre projet</a>
+  </div>
+</div>
+    </div>
+  </section>
+  <section aria-labelledby="ex-entete" class="exemple">
+    <h2 id="ex-entete" class="conteneur titre-exemple">En-tête</h2>
+    <div>
+<header class="entete-site">
+  <div class="conteneur entete">
+    <a class="marque" href="#exemples">
+      <img class="logo" src="../assets/logo.png" alt="" width="56" height="56">
+      <span class="marque-texte"><strong>Marjorie Ngoupende</strong><span>Web design et accessibilité numérique</span></span>
+    </a>
+    <nav class="nav" aria-label="Menu principal">
+      <ul><li><a href="#exemples">Services</a></li><li><a href="#exemples">Réalisations</a></li><li><a href="#exemples">Ressources</a></li><li><a href="#exemples">Contact</a></li></ul>
+    </nav>
+  </div>
+</header>
+    </div>
+  </section>
+  <section aria-labelledby="ex-lienevitement" class="exemple">
+    <h2 id="ex-lienevitement" class="conteneur titre-exemple">Liens d’évitement</h2>
+    <div style="padding:1.5rem 1rem">
+<ul class="evitement">
+  <li><a class="est-visible" href="#exemples">Aller au contenu</a></li>
+</ul>
+    </div>
+  </section>
+  <section aria-labelledby="ex-bloccontact" class="exemple">
+    <h2 id="ex-bloccontact" class="conteneur titre-exemple">Bloc contact</h2>
+    <div style="padding:1.5rem 1rem">
+<div class="bloc-contact">
+  <div>
+    <h3>Un projet ? Parlons-en.</h3>
+    <p>Basée à Toulon, je travaille avec des clients partout en France. Je vous réponds sous 48 heures.</p>
+  </div>
+  <div>
+    <a class="bouton" href="#exemples">Écrire un e-mail</a>
+    <ul class="reseaux" aria-label="Me suivre sur les réseaux sociaux"><li><a href="#exemples">LinkedIn</a></li><li><a href="#exemples">YouTube</a></li></ul>
+  </div>
+</div>
+    </div>
+  </section>
+  <section aria-labelledby="ex-pieddepage" class="exemple">
+    <h2 id="ex-pieddepage" class="conteneur titre-exemple">Pied de page</h2>
+    <div>
+<footer class="pied">
+  <div class="conteneur">
+    <div class="pied-haut">
+      <div>
+        <h3>Paramètres d’affichage</h3>
+        <fieldset>
+          <legend>Choisissez le thème de la page :</legend>
+          <label class="choix-theme"><input type="radio" name="theme" value="light"> Thème clair</label>
+          <label class="choix-theme"><input type="radio" name="theme" value="dark"> Thème sombre</label>
+          <label class="choix-theme"><input type="radio" name="theme" value="contraste"> Contraste élevé</label>
+          <label class="choix-theme"><input type="radio" name="theme" value="system" checked> Thème du système</label>
+        </fieldset>
+      </div>
+      <div>
+        <h3>Accessibilité</h3>
+        <p>Un problème d’accès ? <a href="#exemples">Signalez-le-moi</a>.</p>
+        <details><summary>Adapter l’affichage avec votre navigateur</summary>
+          <h4>Agrandir la page</h4>
+          <ul class="consignes"><li>Sur ordinateur : <kbd>Ctrl</kbd> et <kbd>+</kbd>.</li></ul>
+        </details>
+      </div>
+    </div>
+    <ul class="pied-liens"><li><a href="#exemples">Accessibilité : premier niveau</a></li><li>Aucun cookie de suivi</li><li>© 2026 Marjorie Ngoupende</li></ul>
+  </div>
+</footer>
+    </div>
+  </section>
+  <script>
+    document.querySelectorAll('input[name="theme-demo"]').forEach(function (r) {
+      r.addEventListener('change', function () {
+        if (this.value) document.documentElement.setAttribute('data-theme', this.value);
+        else document.documentElement.removeAttribute('data-theme');
+      });
+    });
+  </script>
+</body>
+</html>
